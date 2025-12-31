@@ -1,18 +1,12 @@
-import { Button } from "@mui/material";
-import BedtimeIcon from "@mui/icons-material/Bedtime";
-
 const Navbar = () => {
   return (
     <>
-      <div className="flex flex-row justify-between align-center shadow-xl p-8">
-        <h1 className="text-black p-1">
-          <strong>Where in the world?</strong>
-        </h1>
-        <Button color="inherit">
-          <BedtimeIcon />
-          Dark Mode
-        </Button>
-      </div>
+      <nav className="w-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-[hsl(0_0%_100%)] px-18 py-4 flex justify-between items-center">
+        <h2 className="font-semibold text-l md:text-2xl">
+          Where in the World?
+        </h2>
+        <h3>Dark Mode</h3>
+      </nav>
     </>
   );
 };
