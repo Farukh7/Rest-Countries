@@ -7,21 +7,39 @@ const CountryDetail = () => {
   const { countryName } = useParams();
   const navigate = useNavigate();
   const [country, setCountry] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getCountry = async () => {
       try {
+        setLoading(true);
         const data = await fetchCountryDetails(countryName);
         setCountry(data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
     getCountry();
   }, [countryName]);
 
-  if (!country) {
+  const handleBorderClick = async (borderCode) => {
+    try {
+      const res = await fetch(
+        `https://restcountries.com/v3.1/alpha/${borderCode}`
+      );
+      const data = await res.json();
+
+      const borderCountryName = data[0].name.common;
+      navigate(`/country/${borderCountryName}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading || !country) {
     return (
       <div className="p-10 text-center text-gray-500 dark:text-gray-300">
         Loading country details...
@@ -35,7 +53,8 @@ const CountryDetail = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="px-8 py-2 mt-10 mb-16 shadow-[0_4px_20px_rgba(0,0,0,0.3)]
+          className="px-8 py-2 mt-10 mb-16
+                     shadow-[0_4px_20px_rgba(0,0,0,0.3)]
                      rounded flex items-center gap-2
                      bg-[hsl(0_0%_98%)] dark:bg-[hsl(209_23%_22%)]
                      text-[hsl(200_15%_8%)] dark:text-white"
@@ -109,21 +128,24 @@ const CountryDetail = () => {
               </div>
             </div>
 
-            {/* Borders */}
+            {/* Border Countries */}
             <div className="flex flex-col md:flex-row gap-3 items-start md:items-center">
               <strong className="dark:text-white">Border Countries:</strong>
 
               <div className="flex flex-wrap gap-2">
                 {country.borders?.length > 0 ? (
                   country.borders.map((border) => (
-                    <span
+                    <button
                       key={border}
+                      onClick={() => handleBorderClick(border)}
                       className="px-6 py-1 rounded shadow
+                                 cursor-pointer transition
+                                 hover:scale-105
                                  bg-[hsl(0_0%_98%)] dark:bg-[hsl(209_23%_22%)]
                                  text-[hsl(200_15%_8%)] dark:text-white"
                     >
                       {border}
-                    </span>
+                    </button>
                   ))
                 ) : (
                   <span className="text-gray-700 dark:text-gray-300">None</span>
