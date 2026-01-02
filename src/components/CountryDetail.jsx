@@ -53,7 +53,7 @@ const CountryDetail = () => {
           <img
             src={country.flags.svg}
             alt={country.name.common}
-            className="w-full md:w-[560px] h-auto object-cover"
+            className="w-full md:w-140 h-auto object-cover"
           />
 
           {/* Details */}
