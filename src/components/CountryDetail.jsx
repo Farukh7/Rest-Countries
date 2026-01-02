@@ -30,93 +30,110 @@ const CountryDetail = () => {
   }
 
   return (
-    <>
-      <div className="w-full flex items-center justify-center">
-        <div className="px-10 w-max-7xl flex flex-col justify-start items-start">
-          <button
-            onClick={() => navigate(-1)}
-            className="px-8 py-2 mt-10 mb-10 shadow-[0_4px_20px_rgba(0,0,0,0.3)] cursor-pointer rounded flex  items-center justify-center gap-2 
-                        bg-[hsl(0_0%_98%)] dark:bg-[hsl(209_23%_22%)] text-[hsl(200_15%_8%)] dark:text-[hsl(0_0%_100%)]"
-          >
-            <FaArrowLeft /> Back
-          </button>
+    <div className="w-full flex justify-center">
+      <div className="px-10 w-full max-w-7xl">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="px-8 py-2 mt-10 mb-16 shadow-[0_4px_20px_rgba(0,0,0,0.3)]
+                     rounded flex items-center gap-2
+                     bg-[hsl(0_0%_98%)] dark:bg-[hsl(209_23%_22%)]
+                     text-[hsl(200_15%_8%)] dark:text-white"
+        >
+          <FaArrowLeft />
+          Back
+        </button>
 
-          <div className=" flex flex-col md:flex-row gap-30 items-center justify-start w-full">
-            <img
-              src={country.flags.svg}
-              alt={country.name.common}
-              className="h-100 w-130"
-            />
-            <div className="space-y-20">
-              <h2 className="text-3xl font-bold mb-6">{country.name.common}</h2>
-              <div className="flex flex-col md:flex-row gap-20 md:gap-30">
-                <div className="space-y-2">
-                  <p>
-                    <strong>Native Name:</strong>{" "}
-                    {Object.values(country?.name?.nativeName || {})[0]
-                      ?.common || "NA"}
-                  </p>
-                  <p>
-                    <strong>Population:</strong>{" "}
-                    {country.population.toLocaleString()}
-                  </p>
-                  <p>
-                    <strong>Region:</strong> {country.region}
-                  </p>
-                  <p>
-                    <strong>Sub Region:</strong> {country.subregion || "NA"}
-                  </p>
-                  <p>
-                    <strong>Capital:</strong> {country.capital?.[0] || "NA"}
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <p>
-                    <strong>Top Level Domain:</strong>{" "}
-                    {country.tld?.[0] || "N/A"}
-                  </p>
-                  <p>
-                    <strong>currencies:</strong>{" "}
-                    {country?.currencies
-                      ? Object.values(country.currencies)
-                          .map((c) => c.name)
-                          .join(", ")
-                      : "NA"}
-                  </p>
-                  <p>
-                    <strong>Languages:</strong>{" "}
-                    {country?.languages
-                      ? Object.values(country.languages).join(", ")
-                      : "NA"}
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col md:flex-row gap-3 md:items-center">
-                <p className="flex">
-                  <strong>Border Countries:</strong>
+        {/* Content */}
+        <div
+          className="flex flex-col md:flex-row gap-24 items-start
+                     text-[hsl(200_15%_8%)] dark:text-white"
+        >
+          {/* Flag */}
+          <img
+            src={country.flags.svg}
+            alt={country.name.common}
+            className="w-full md:w-[560px] h-auto object-cover"
+          />
+
+          {/* Details */}
+          <div className="space-y-10">
+            <h2 className="text-3xl font-extrabold">{country.name.common}</h2>
+
+            <div className="flex flex-col md:flex-row gap-20">
+              {/* Left column */}
+              <div className="space-y-2 text-gray-800 dark:text-gray-300">
+                <p>
+                  <strong className="dark:text-white">Native Name:</strong>{" "}
+                  {Object.values(country?.name?.nativeName || {})[0]?.common ||
+                    "NA"}
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {country.borders?.length > 0 ? (
-                    country.borders.map((borderCode) => (
-                      <button
-                        key={borderCode}
-                        onClick={() => navigate(`/country/${borderCode}`)}
-                        className="px-8 py-1 cursor-pointer rounded shadow bg-[hsl(0_0%_98%)] dark:bg-[hsl(209_23%_22%)] 
-                                                         text-[hsl(200_15%_8%)] dark:text-[hsl(0_0%_100%)]"
-                      >
-                        {borderCode}
-                      </button>
-                    ))
-                  ) : (
-                    <span>None</span>
-                  )}
-                </div>
+                <p>
+                  <strong className="dark:text-white">Population:</strong>{" "}
+                  {country.population.toLocaleString()}
+                </p>
+                <p>
+                  <strong className="dark:text-white">Region:</strong>{" "}
+                  {country.region}
+                </p>
+                <p>
+                  <strong className="dark:text-white">Sub Region:</strong>{" "}
+                  {country.subregion}
+                </p>
+                <p>
+                  <strong className="dark:text-white">Capital:</strong>{" "}
+                  {country.capital?.[0]}
+                </p>
+              </div>
+
+              {/* Right column */}
+              <div className="space-y-2 text-gray-800 dark:text-gray-300">
+                <p>
+                  <strong className="dark:text-white">Top Level Domain:</strong>{" "}
+                  {country.tld?.[0] || "N/A"}
+                </p>
+                <p>
+                  <strong className="dark:text-white">Currencies:</strong>{" "}
+                  {country?.currencies
+                    ? Object.values(country.currencies)
+                        .map((c) => c.name)
+                        .join(", ")
+                    : "NA"}
+                </p>
+                <p>
+                  <strong className="dark:text-white">Languages:</strong>{" "}
+                  {country?.languages
+                    ? Object.values(country.languages).join(", ")
+                    : "NA"}
+                </p>
+              </div>
+            </div>
+
+            {/* Borders */}
+            <div className="flex flex-col md:flex-row gap-3 items-start md:items-center">
+              <strong className="dark:text-white">Border Countries:</strong>
+
+              <div className="flex flex-wrap gap-2">
+                {country.borders?.length > 0 ? (
+                  country.borders.map((border) => (
+                    <span
+                      key={border}
+                      className="px-6 py-1 rounded shadow
+                                 bg-[hsl(0_0%_98%)] dark:bg-[hsl(209_23%_22%)]
+                                 text-[hsl(200_15%_8%)] dark:text-white"
+                    >
+                      {border}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-gray-700 dark:text-gray-300">None</span>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

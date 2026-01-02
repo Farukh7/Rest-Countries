@@ -89,25 +89,27 @@ const HomePage = () => {
   }
 
   return (
-    <div className="max-w-[95%] mx-auto px-6">
-      <Search
-        input={input}
-        setInput={setInput}
-        regions={regions}
-        region={region}
-        setRegion={setRegion}
-        subRegions={filteredSubRegions}
-        subRegion={subRegion}
-        setSubRegion={setSubRegion}
-      />
+    <div className="min-h-screen bg-[hsl(0_0%_98%)] dark:bg-[hsl(207_26%_17%)]">
+      <div className="max-w-[95%] mx-auto px-6">
+        <Search
+          input={input}
+          setInput={setInput}
+          regions={regions}
+          region={region}
+          setRegion={setRegion}
+          subRegions={filteredSubRegions}
+          subRegion={subRegion}
+          setSubRegion={setSubRegion}
+        />
 
-      {filteredCountries.length <= 0 && input !== "" ? (
-        <div className="text-center py-10 text-lg font-semibold text-gray-700 dark:text-gray-300">
-          No country found "<span className="text-blue-500">{input}</span>"
-        </div>
-      ) : (
-        <Countries countries={filteredCountries} />
-      )}
+        {filteredCountries.length <= 0 && input !== "" ? (
+          <div className="text-center py-10 text-lg font-semibold text-gray-700 dark:text-gray-300">
+            No country found "<span className="text-blue-500">{input}</span>"
+          </div>
+        ) : (
+          <Countries countries={filteredCountries} />
+        )}
+      </div>
     </div>
   );
 };

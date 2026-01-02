@@ -1,10 +1,8 @@
-import React from "react";
 import CountryCard from "./CountryCard";
-import Search from "./Search";
 
 const Countries = ({ countries }) => (
-  <div className="p-6">
-    <div className="flex flex-wrap justify-center gap-22">
+  <div className="py-10">
+    <div className="grid gap-15 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
       {countries.map((country) => (
         <CountryCard key={country.cca3} country={country} />
       ))}
